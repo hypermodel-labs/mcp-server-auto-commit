@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/jatinsandilya-mcp-server-auto-commit-badge.jpg)](https://mseep.ai/app/jatinsandilya-mcp-server-auto-commit)
+
 # MCP Server to Auto commit changes  🛠️
 
 This implementation provides a Git changes analyzer that generates commit messages using OpenAI's GPT models.
