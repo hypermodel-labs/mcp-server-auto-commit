@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { exec } from 'child_process';
+import { execFile } from "child_process";
 import { promisify } from 'util';
 import OpenAI from 'openai';
 import * as dotenv from 'dotenv';
@@ -22,7 +22,7 @@ if (!apiKey) {
 
 dotenv.config();
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -41,9 +41,9 @@ async function getGitChanges(input: string) {
     // Get staged and unstaged changes
     const cwd = input || process.cwd();
     console.log("cwd", cwd);
-    await execAsync(`cd ${cwd}`);
-    const { stdout: diffOutput } = await execAsync('git diff HEAD', { cwd });
-    const { stdout: statusOutput } = await execAsync('git status --porcelain', { cwd });
+    
+    const { stdout: diffOutput } = await execFileAsync("git", ["diff", "HEAD"], { cwd });
+    const { stdout: statusOutput } = await execFileAsync("git", ["status", "--porcelain"], { cwd });
     
     // Process the changes
     const changes = {
